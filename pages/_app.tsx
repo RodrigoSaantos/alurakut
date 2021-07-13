@@ -14,13 +14,29 @@ const GlobalStyle = createGlobalStyle`
     --gray-3: #999999;
     --gray-4: #C5C6CA;
     --gray-5: #F4F4F4;
-  } 
+  }
 
-  body {
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+
+  body {
+    font: sans-serif;
     background: var(--background-default);
+  }
+
+  #__next {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
   }
 `
 
