@@ -1,4 +1,6 @@
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+
+import { AlurakutStyles } from '../lib/AluraCommons';
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -38,6 +40,8 @@ const GlobalStyle = createGlobalStyle`
     height: auto;
     display: block;
   }
+
+  ${AlurakutStyles}
 `
 
 const theme = {
