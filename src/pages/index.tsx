@@ -1,6 +1,6 @@
 import { Box, MainGrid, ProfileRelationsBoxWrapper } from '../styles/home';
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../lib/AluraCommons';
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 
 interface ProfileSidebarProps {
   userName: string;
@@ -26,6 +26,9 @@ function ProfileSidebar({ userName }: ProfileSidebarProps) {
 
 export default function Home() {
   const githubUser = 'rodrigosaantos';
+  const [imageURL, setImageURL] = useState('');
+  const [communityName, setCommunityName] = useState('');
+  const [communities, setCommunities] = useState([]);
 
   const friends = [
     'rodrigosaantos',
@@ -38,10 +41,17 @@ export default function Home() {
   ]
 
   function handleSubmit(e: FormEvent) {
-
     e.preventDefault();
 
-    console.log('Submit');
+    const community = {
+      id: new Date().toISOString(),
+      title: communityName,
+      image: imageURL,
+    }
+
+    const newCommunities = [...communities, community];
+
+    setCommunities(newCommunities);
 
   }
 
@@ -71,6 +81,8 @@ export default function Home() {
                   placeholder="Coloque uma URL para usarmos de capa"
                   name="image"
                   aria-label="Coloque uma URL para usarmos de capa"
+                  value={imageURL}
+                  onChange={event => setImageURL(event.target.value)}
                 />
               </div>
               <div>
@@ -79,6 +91,8 @@ export default function Home() {
                   placeholder="Qual vai ser o name da sua comunidade?"
                   name="title"
                   aria-label="Qual vai ser o name da sua comunidade?"
+                  value={communityName}
+                  onChange={event => setCommunityName(event.target.value)}
                 />
               </div>
 
@@ -106,9 +120,25 @@ export default function Home() {
 
             </ul>
           </ProfileRelationsBoxWrapper>
-          <Box>
-            Comunidade
-          </Box>
+          <ProfileRelationsBoxWrapper>
+            <h2 className="smallTitle">
+              Comunidade
+            </h2>
+
+            <ul>
+              {communities.map((community) => {
+                return (
+                  <li key={community.id}>
+                    <a href={`/users/${community.title}`}>
+                      <img src={community.image} />
+                      <span>{community.title}</span>
+                    </a>
+                  </li>
+                )
+              })}
+
+            </ul>
+          </ProfileRelationsBoxWrapper>
         </div>
       </MainGrid>
     </>
