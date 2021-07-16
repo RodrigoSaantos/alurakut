@@ -63,7 +63,7 @@ export default function Home() {
     fetch('https://graphql.datocms.com/', {
       method: 'POST',
       headers: {
-        'authorization': '14722ae3910de514a27d1ada19aad9',
+        'authorization': process.env.NEXT_PUBLIC_API_COMMUNITIES,
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
@@ -87,7 +87,7 @@ export default function Home() {
     })
       .then(response => response.json())
       .then(response => setCommunities(response.data.allCommunities))
-  }, []);
+  }, [communities]);
 
   const friends = [
     'rodrigosaantos',
@@ -103,14 +103,26 @@ export default function Home() {
     e.preventDefault();
 
     const community = {
-      id: new Date().toISOString(),
       title: communityName,
-      imageUrl: imageURL,
+      image_url: imageURL,
+      creator_slug: githubUser,
     }
 
-    const newCommunities = [...communities, community];
+    fetch('/api/community', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(community),
+    }).then(async response => {
+      // const data = await response.json();
+      // console.log({data});
+      const newCommunities = [...communities, community];
+      setCommunities(newCommunities);
+      setCommunityName('')
+      setImageURL('')
+    })
 
-    setCommunities(newCommunities);
 
   }
 
