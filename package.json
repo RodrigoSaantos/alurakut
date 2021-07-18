@@ -7,13 +7,16 @@
   },
   "dependencies": {
     "datocms-client": "^3.4.11",
+    "jsonwebtoken": "^8.5.1",
     "next": "latest",
+    "nookies": "^2.5.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-is": "^17.0.2",
     "styled-components": "^5.2.3"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.4",
     "@types/react": "^17.0.14",
     "@types/styled-components": "^5.1.11",
     "babel-plugin-styled-components": "^1.12.0",
